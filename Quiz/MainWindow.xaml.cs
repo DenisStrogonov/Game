@@ -24,12 +24,13 @@ namespace Quiz
         public int teamCount;
         public int questionCount;
         public int categoryCount;
-        //Team name radio buttons
+        public Brush normalBrush;
 
         public MainWindow()
         {
 
             InitializeComponent();
+            normalBrush = botion1.Background;
             parseXML();
             categoryComboBox();
 
@@ -84,8 +85,8 @@ namespace Quiz
                 if (count > 0)
                 {
                     teamCount = count;
-                    StartPanel.Visibility = Visibility.Hidden;
-                    CommandNamesPanel.Visibility = Visibility.Visible;
+                    StartPanel.Visibility = System.Windows.Visibility.Hidden;
+                    CommandNamesPanel.Visibility = System.Windows.Visibility.Visible;
                     teams = new List<Team>();
                     for (int i = 0; i < count; i++)
                     {
@@ -109,19 +110,21 @@ namespace Quiz
         //Close team name window
         private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            CommandNamesPanel.Visibility = Visibility.Hidden;
-            StartPanel.Visibility = Visibility.Visible;
+            CommandNamesPanel.Visibility = System.Windows.Visibility.Hidden;
+            StartPanel.Visibility = System.Windows.Visibility.Visible;
         }
 
         //Start game !
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             TeamDockPanel.Items.Clear();
-            foreach (var team in teams) {
+            foreach (var team in teams)
+            {
                 TeamDockPanel.Items.Add(new TeamModel() { team = team });
             }
-          
-            foreach (var t in teams) {
+
+            foreach (var t in teams)
+            {
                 t.score = 0;
             }
             if (teams.Count != 0)
@@ -136,8 +139,8 @@ namespace Quiz
                     return;
                 }
                 initQuestionMatrix();
-                QuestionPanel.Visibility = Visibility.Visible;
-                StartPanel.Visibility = Visibility.Hidden;
+                QuestionPanel.Visibility = System.Windows.Visibility.Visible;
+                StartPanel.Visibility = System.Windows.Visibility.Hidden;
             }
         }
 
@@ -147,8 +150,8 @@ namespace Quiz
 
         private void QuestionPanelBackButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            QuestionPanel.Visibility = Visibility.Hidden;
-            StartPanel.Visibility = Visibility.Visible;
+            QuestionPanel.Visibility = System.Windows.Visibility.Hidden;
+            StartPanel.Visibility = System.Windows.Visibility.Visible;
 
         }
 
@@ -157,14 +160,13 @@ namespace Quiz
             QuestionMatrix.RowDefinitions.Clear();
             QuestionMatrix.ColumnDefinitions.Clear();
             QuestionMatrix.Children.Clear();
-            QuestionMatrix.ShowGridLines = true;
             for (int i = 0; i < categoryCount; i++)
             {
                 var def = new ColumnDefinition();
                 def.Width = new GridLength(QuestionMatrix.Width / categoryCount);
                 QuestionMatrix.ColumnDefinitions.Add(def);
             }
-            var qc = file.FirstOrDefault().questions.Count<questionCount?file.FirstOrDefault().questions.Count:questionCount;
+            var qc = file.FirstOrDefault().questions.Count < questionCount ? file.FirstOrDefault().questions.Count : questionCount;
             for (int i = 0; i < questionCount + 1; i++)
             {
                 var def = new RowDefinition()
@@ -185,7 +187,8 @@ namespace Quiz
                 {
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Content = file[i].name
+                    Content = file[i].name,
+                    Foreground=Brushes.Black
                 };
                 Grid.SetRow(label, 0);
                 Grid.SetColumn(label, i);
@@ -195,9 +198,10 @@ namespace Quiz
                     if (j >= file[i].questions.Count) break;
                     var button = new Button()
                     {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
+                        /*HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,*/
                         Content = file[i].questions[j],
+                        Margin= new System.Windows.Thickness(10,10,10,10)
                     };
                     button.Click += new RoutedEventHandler(questionButtonClick);
                     Grid.SetRow(button, j + 1);
@@ -206,66 +210,33 @@ namespace Quiz
                 }
             }
         }
-        //A question was opened
+        //A question is being opened
         private void questionButtonClick(object sender, RoutedEventArgs e)
         {
+
             if (selectedTeam == null) return;//NO team selected
+            CurrentTeamLabel.Content = "Komanda: " + selectedTeam.name;
             var question = ((Button)sender).Content as Question;
-            ((Button)sender).Visibility = Visibility.Hidden;
+            ((Button)sender).Visibility = System.Windows.Visibility.Hidden;
             selectedQuestion = question;
-            AnswerQuestionPanel.Visibility = Visibility.Visible;
-            QuestionPanel.Visibility = Visibility.Hidden;
+            AnswerQuestionPanel.Visibility = System.Windows.Visibility.Visible;
+            QuestionPanel.Visibility = System.Windows.Visibility.Hidden;
             QuestionTextLabel.Content = question.question;
-            option1.Content = question.options[0];
-            option2.Content = question.options[1];
-            option3.Content = question.options[2];
-            option4.Content = question.options[3];
-            //Reset buttons
-            option1.IsChecked = option2.IsChecked = option3.IsChecked = option4.IsChecked = false;
-            option1.Foreground = option2.Foreground = option3.Foreground = option4.Foreground = Brushes.Black;
-            option1.IsEnabled = option2.IsEnabled = option3.IsEnabled = option4.IsEnabled = true;
-
-        }
-        //A question was answered
-        private void option1_Checked(object sender, RoutedEventArgs e)
-        {
-            disableControls();
-            var list = new List<RadioButton>();
-            list.Add(option1);
-            list.Add(option2);
-            list.Add(option3);
-            list.Add(option4);
-            var content = ((RadioButton)sender).Content as Option;
-            if (content.correct)
-            {
-                ((RadioButton)sender).Foreground = Brushes.Green;
-                selectedTeam.score += selectedQuestion.value;
-
-            }
-            else
-            {
-                ((RadioButton)sender).Foreground = Brushes.Red;
-                foreach (var b in list)
-                {
-                    var cont = b.Content as Option;
-                    if (cont.correct)
-                    {
-                        b.Foreground = Brushes.Green;
-                    }
-                }
-            }
-
+           botion1.Content = question.options[0];
+           botion2.Content = question.options[1];
+           botion3.Content = question.options[2];
+           botion4.Content = question.options[3];
+            //Reset boptions
+            botion1.IsEnabled = botion2.IsEnabled = botion3.IsEnabled = botion4.IsEnabled = true;
+            botion1.Background = botion2.Background = botion3.Background = botion4.Background = normalBrush;
         }
 
-        private void disableControls()
-        {
-            option1.IsEnabled = option2.IsEnabled = option3.IsEnabled = option4.IsEnabled = false;
-        }
+
         //Close answering question
         private void QuestionOptionsPanel_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            AnswerQuestionPanel.Visibility = Visibility.Hidden;
-            QuestionPanel.Visibility = Visibility.Visible;
+            AnswerQuestionPanel.Visibility = System.Windows.Visibility.Hidden;
+            QuestionPanel.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -284,7 +255,7 @@ namespace Quiz
                 {
                     Height = new GridLength(ResultMatrix.Height / teams.Count)
                 });
-                Label teamName = new Label() { Content = teams[i].name, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Foreground=Brushes.Black };
+                Label teamName = new Label() { Content = teams[i].name, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Foreground = Brushes.Black };
                 Label score = new Label() { Content = teams[i].score, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Foreground = Brushes.Black };
                 Grid.SetColumn(teamName, 0);
                 Grid.SetRow(teamName, i);
@@ -293,15 +264,44 @@ namespace Quiz
                 Grid.SetRow(score, i);
                 ResultMatrix.Children.Add(score);
             }
-            ResultPanel.Visibility = Visibility.Visible;
-            QuestionPanel.Visibility = Visibility.Hidden;
+            ResultPanel.Visibility = System.Windows.Visibility.Visible;
+            QuestionPanel.Visibility = System.Windows.Visibility.Hidden;
         }
 
         //Back from result
         private void ResultPanel_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            ResultPanel.Visibility = Visibility.Hidden;
-            QuestionPanel.Visibility = Visibility.Visible;
+            ResultPanel.Visibility = System.Windows.Visibility.Hidden;
+            QuestionPanel.Visibility = System.Windows.Visibility.Visible;
+        }
+        //Question was answered
+        private void botion1_Click(object sender, RoutedEventArgs e)
+        {
+            botion1.IsEnabled = botion2.IsEnabled = botion3.IsEnabled = botion4.IsEnabled = false;
+            var list = new List<Button>();
+            list.Add(botion1);
+            list.Add(botion2);
+            list.Add(botion3);
+            list.Add(botion4);
+            var content = ((Button)sender).Content as Option;
+            if (content.correct)
+            {
+                ((Button)sender).Background = Brushes.ForestGreen;
+                selectedTeam.score += selectedQuestion.value;
+            }
+            else
+            {
+                ((Button)sender).Background = Brushes.Red;
+                foreach (var b in list)
+                {
+                    var cont = b.Content as Option;
+                    if (cont.correct)
+                    {
+                        b.Background = Brushes.ForestGreen;
+                    }
+                }
+            }
+
         }
     }
 }

@@ -287,12 +287,12 @@
                                 <BeginStoryboard Storyboard="{StaticResource PressedOff}"/>
                             </Trigger.ExitActions>
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="true"/>
-                        <Trigger Property="IsEnabled" Value="false">
+            <Trigger Property="IsEnabled" Value="true"/><!--
+            <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" Value="{DynamicResource DisabledBackgroundBrush}" TargetName="Background"/>
                             <Setter Property="BorderBrush" Value="{DynamicResource DisabledBorderBrush}" TargetName="Background"/>
                             <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}"/>
-                        </Trigger>
+                        </Trigger>-->
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
 
@@ -1396,7 +1396,7 @@
     <ControlTemplate x:Key="ComboBoxTemplate" TargetType="{x:Type ComboBox}">
                     <Grid>
                         <ToggleButton Grid.Column="2" Template="{DynamicResource ComboBoxToggleButton}" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"/>
-                        <ContentPresenter HorizontalAlignment="Left" Margin="3,3,23,3" x:Name="ContentSite" VerticalAlignment="Center" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" IsHitTestVisible="False"/>
+                        <ContentPresenter HorizontalAlignment="Center" Margin="3,3,23,3" x:Name="ContentSite" VerticalAlignment="Center" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" IsHitTestVisible="False"/>
 
                         <TextBox Visibility="Hidden" Template="{DynamicResource ComboBoxTextBox}" HorizontalAlignment="Left" Margin="3,3,23,3" x:Name="PART_EditableTextBox" Style="{x:Null}" VerticalAlignment="Center" Focusable="True" Background="Transparent" IsReadOnly="{TemplateBinding IsReadOnly}"/>
 
