@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xml>
+  <category Name="Ball cupping">
+    <question value="500">
+      <text>Its friday afternoon, shall you or shall you now cup the balls?</text>
+      <option correct="true">yes</option>
+      <option correct="false">no</option>
+      <option correct="false">maybe so</option>
+      <option correct="false">#420</option>
+    </question>
+    <question value="300">
+      <text>Shall the balls remain uncupped if the police is comming?</text>
+      <option correct="false">yes</option>
+      <option correct="false">no</option>
+      <option correct="true">fuck no!</option>
+      <option correct="false">moyase</option>
+    </question>
+    <question value="200">
+      <text>To cup or not to cup?</text>
+      <option correct="false">#420</option>
+      <option correct="true">that is the question</option>
+      <option correct="false">pls yes</option>
+      <option correct="false">git.cupped</option>
+    </question>
+    <question value="100">
+      <text>Are hairy balls as cuppable as skinny ones?</text>
+      <option correct="false">probably</option>
+      <option correct="false">maybe</option>
+      <option correct="false">prolly</option>
+      <option correct="true">perhaps</option>
+    </question>
+  </category>
+  <category Name="Denise">
+    <question value="100">
+      <text>How do you write Denises name?</text>
+      <option correct="false">Denis</option>
+      <option correct="true">Denise</option>
+      <option correct="false">Денис</option>
+      <option correct="false">CUP THE BALLS!</option>
+    </question>
+    <question value="300">
+      <text>What color are Denises kat's eyes?</text>
+      <option correct="false">Blue and Black</option>
+      <option correct="false">White and gold</option>
+      <option correct="false">Same colors</option>
+      <option correct="true">Different colors</option>
+    </question>
+    <question value="500">
+      <text>How much 'do' would denise do, if denise could do 'do'</text>
+      <option correct="false">Shitload</option>
+      <option correct="true">with an insane overkill</option>
+      <option correct="false">reasonable amount</option>
+      <option correct="false">Kat!</option>
+    </question>
+    <question value="100">
+      <text>How much kats?</text>
+      <option correct="false">1</option>
+      <option correct="false">one</option>
+      <option correct="false">en</option>
+      <option correct="true">ichi</option>
+    </question>
+  </category>
+  <category Name="KATS!">
+    <question value="500">
+      <text>Black, 5 paws, how many kats?</text>
+      <option correct="true">5 1-legged kats</option>
+      <option correct="false">11 nigger kats</option>
+      <option correct="false">1 reeeeealy strange kat</option>
+      <option correct="false">CUP THE BALLS!</option>
+    </question>
+    <question value="400">
+      <text>Are kats evil?</text>
+      <option correct="true">yes</option>
+      <option correct="false">no</option>
+      <option correct="false">only on fridays</option>
+      <option correct="false">WHY ARE YOU ASKING???</option>
+    </question>
+    <question value="100">
+      <text>I CAME IN LIKE A WREEEEEECKING ...</text>
+      <option correct="false">kAt</option>
+      <option correct="true">KAT</option>
+      <option correct="false">KaT</option>
+      <option correct="false">Kat!</option>
+    </question>
+    <question value="100">
+      <text>How much kats?</text>
+      <option correct="false">420</option>
+      <option correct="false">one</option>
+      <option correct="true">eleven and a half</option>
+      <option correct="false">#720</option>
+    </question>
+  </category>
+</xml>
