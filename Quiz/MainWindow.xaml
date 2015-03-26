@@ -9,7 +9,7 @@
         <ImageBrush ImageSource="Resources/bg.png"/>
     </Window.Background>
     <Grid>
-        <Grid HorizontalAlignment="Left" Height="481" Margin="10,10,0,0" VerticalAlignment="Top" Width="742" x:Name="StartPanel">
+        <Grid HorizontalAlignment="Left" Height="481" Margin="10,10,0,0" VerticalAlignment="Top" Width="742" x:Name="StartPanel" Visibility="Hidden" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <Grid.Background>
                 <ImageBrush/>
             </Grid.Background>
@@ -22,7 +22,7 @@
             <Button Content="Komandu nosaukumi" HorizontalAlignment="Left" Margin="182,243,0,0" VerticalAlignment="Top" Width="426" RenderTransformOrigin="-0.093,0.5" Click="Button_Click" Height="44" FontFamily="Myriad Regular" FontWeight="Bold"/>
             <Button x:Name="startGame" Content="Sākt spēli" HorizontalAlignment="Left" Margin="182,298,0,0" VerticalAlignment="Top" Width="426" RenderTransformOrigin="-0.093,0.5" Click="Button_Click_1" Height="93" SnapsToDevicePixels="True" FontFamily="Myriad Regular" FontWeight="Bold"/>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="501" VerticalAlignment="Top" Width="762" x:Name="CommandNamesPanel" Visibility="Hidden">
+        <Grid HorizontalAlignment="Left" Height="501" VerticalAlignment="Top" Width="762" x:Name="CommandNamesPanel" Visibility="Hidden" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <ListBox HorizontalAlignment="Left" Height="359" Margin="167,10,0,0" VerticalAlignment="Top" Width="532" Name="TeamListBox" Background="{x:Null}" HorizontalContentAlignment="Center">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -32,7 +32,7 @@
             </ListBox>
             <Image HorizontalAlignment="Left" Height="50" Margin="10,441,0,0" VerticalAlignment="Top" Width="50" Source="http://images.wikia.com/callofduty/images/archive/4/4e/20110227211000!Left_Arrow.png" MouseLeftButtonUp="Image_MouseLeftButtonUp"/>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="501" VerticalAlignment="Top" Width="762" x:Name="QuestionPanel" Visibility="Hidden">
+        <Grid HorizontalAlignment="Left" Height="501" VerticalAlignment="Top" Width="762" x:Name="QuestionPanel" Visibility="Hidden" Grid.ColumnSpan="2" Grid.RowSpan="2">
 
             <ItemsControl x:Name="TeamDockPanel" Margin="169,389,48,65">
                 <ItemsControl.ItemsPanel>
@@ -53,7 +53,7 @@
             <Grid HorizontalAlignment="Left" Height="374" Margin="159,10,0,0" VerticalAlignment="Top" Width="555" Name="QuestionMatrix" Visibility="Visible"/>
             <Button x:Name="ResultButton" Content="Rezultāti" HorizontalAlignment="Left" Margin="169,441,0,0" VerticalAlignment="Top" Width="105" Height="24" Click="Button_Click_2"/>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="501" VerticalAlignment="Top" Width="762" x:Name="AnswerQuestionPanel" Visibility="Hidden">
+        <Grid HorizontalAlignment="Left" Height="501" VerticalAlignment="Top" Width="762" x:Name="AnswerQuestionPanel" Visibility="Hidden" Grid.ColumnSpan="2" Grid.RowSpan="2">
 
             <Image x:Name="QuestionOptionsPanel" HorizontalAlignment="Left" Height="50" Margin="10,441,0,0" VerticalAlignment="Top" Width="50" Source="http://images.wikia.com/callofduty/images/archive/4/4e/20110227211000!Left_Arrow.png" MouseLeftButtonUp="QuestionOptionsPanel_MouseLeftButtonUp"/>
             <Label Content="Stuff" HorizontalAlignment="Center" Margin="190,10,35,0" VerticalAlignment="Top" Height="49" Width="537" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Name="QuestionTextLabel" Foreground="#FF0E0E0E" />
@@ -81,14 +81,48 @@
                 <Button Grid.Row="3" Content="Button" Margin="10" HorizontalContentAlignment="Left" Padding="15 0 0 0" Name="botion4" Click="botion1_Click"/>
             </Grid>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="501" VerticalAlignment="Top" Width="762" x:Name="ResultPanel" MouseLeftButtonUp="ResultPanel_MouseLeftButtonUp" Visibility="Hidden">
-            <Image x:Name="ResulPanelBack" HorizontalAlignment="Left" Height="50" Margin="10,441,0,0" VerticalAlignment="Top" Width="50" Source="http://images.wikia.com/callofduty/images/archive/4/4e/20110227211000!Left_Arrow.png" />
-            <Grid x:Name="ResultMatrix" HorizontalAlignment="Left" Height="326" Margin="10,110,0,0" VerticalAlignment="Top" Width="742">
+        <Grid HorizontalAlignment="Left" Height="501" VerticalAlignment="Top" Width="762" x:Name="ResultPanel" MouseLeftButtonUp="ResultPanel_MouseLeftButtonUp" Grid.ColumnSpan="2" Grid.RowSpan="2" ShowGridLines="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="76*"/>
+                <RowDefinition Height="349*"/>
+                <RowDefinition Height="76*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="155*"/>
+                <ColumnDefinition Width="547*"/>
+                <ColumnDefinition Width="60*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="1" Grid.Row="0" Content="Rezultāti" Foreground="#FF0E0D0D" FontFamily="Myriad Regular" FontSize="26" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+            <Image x:Name="ResulPanelBack" HorizontalAlignment="Left" Height="50" Margin="10,16,0,0" VerticalAlignment="Top" Width="50" Source="http://images.wikia.com/callofduty/images/archive/4/4e/20110227211000!Left_Arrow.png" Grid.Row="2" />
+            <Grid x:Name="ResultMatrix" Grid.Column="1" Grid.Row="1" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="184*"/>
-                    <ColumnDefinition Width="187*"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
             </Grid>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="501" VerticalAlignment="Top" Width="762" x:Name="TeamPanel" Visibility="Hidden" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="64*"/>
+                <RowDefinition Height="355*"/>
+                <RowDefinition Height="82*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="155*"/>
+                <ColumnDefinition Width="547*"/>
+                <ColumnDefinition Width="60*"/>
+            </Grid.ColumnDefinitions>
+            <Grid  Margin="10,10,10,10"  Grid.Column="1" Grid.Row="1" Name="TeamNameMatrix">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140*"/>
+                    <ColumnDefinition Width="387*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Label Content="Komandu nosaukumi" Grid.Column="1" Grid.Row="0"  Margin="10" Background="{x:Null}" Foreground="Black" FontFamily="Myriad Regular" FontWeight="Bold" 
+                   HorizontalContentAlignment="Center" VerticalAlignment="Center" FontSize="26" Height="32" />
+
+            <Image x:Name="TeamPanelBack" HorizontalAlignment="Left" Height="50" Margin="10,22,0,0" VerticalAlignment="Top" Width="50" Source="http://images.wikia.com/callofduty/images/archive/4/4e/20110227211000!Left_Arrow.png" RenderTransformOrigin="0.56,0.56" Grid.Row="2" MouseLeftButtonUp="TeamPanelBack_MouseLeftButtonUp" />
+
         </Grid>
     </Grid>
 </Window>

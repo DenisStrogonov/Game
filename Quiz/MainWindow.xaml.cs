@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml.Linq;
+using System.Windows.Data;
 
 namespace Quiz
 {
@@ -78,15 +79,19 @@ namespace Quiz
         //Initialize teams (team name panel)
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            TeamListBox.Items.Clear();
+            TeamNameMatrix.Children.Clear();
+            TeamNameMatrix.RowDefinitions.Clear();
             try
             {
                 var count = Int32.Parse(TeamCount.Text);
-                if (count > 0)
+                if (count > 0 && count < 6)
                 {
                     teamCount = count;
+
                     StartPanel.Visibility = System.Windows.Visibility.Hidden;
-                    CommandNamesPanel.Visibility = System.Windows.Visibility.Visible;
+                    TeamPanel.Visibility = Visibility.Visible;
+                    /*
+                    CommandNamesPanel.Visibility = System.Windows.Visibility.Visible;*/
                     teams = new List<Team>();
                     for (int i = 0; i < count; i++)
                     {
@@ -96,8 +101,37 @@ namespace Quiz
                             score = 0
                         };
                         teams.Add(team);
-                        TeamListBox.Items.Add(team);
+                        TextBox box = new TextBox()
+                        {
+                            Margin = new Thickness(15, 15, 15, 15),
+                            VerticalContentAlignment = VerticalAlignment.Center
+                        };
+                        Binding b = new Binding("name")
+                        {
+                            Source = team,
+                            Mode = BindingMode.TwoWay,
+                            UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                        };
+                        box.SetBinding(TextBox.TextProperty, b);
+                        Label l = new Label()
+                        {
+                            Content = "Komanda " + (i + 1) + ": ",
+                            Foreground = Brushes.Black,
+                            VerticalContentAlignment = VerticalAlignment.Center,
+                            HorizontalContentAlignment = HorizontalAlignment.Right,
+                            FontWeight = System.Windows.FontWeights.Bold,
+                            FontFamily = new FontFamily("Comic Sans")
+                        };
+                        RowDefinition def = new RowDefinition();
+                        TeamNameMatrix.RowDefinitions.Add(new RowDefinition());
+                        Grid.SetColumn(box, 1);
+                        Grid.SetRow(box, i);
+                        Grid.SetColumn(l, 0);
+                        Grid.SetRow(l, i);
+                        TeamNameMatrix.Children.Add(box);
+                        TeamNameMatrix.Children.Add(l);
                     }
+
                 }
             }
             catch (Exception ex)
@@ -148,6 +182,7 @@ namespace Quiz
         {
         }
 
+        //From question grid to start panel
         private void QuestionPanelBackButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             QuestionPanel.Visibility = System.Windows.Visibility.Hidden;
@@ -188,7 +223,7 @@ namespace Quiz
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                     Content = file[i].name,
-                    Foreground=Brushes.Black
+                    Foreground = Brushes.Black
                 };
                 Grid.SetRow(label, 0);
                 Grid.SetColumn(label, i);
@@ -201,7 +236,7 @@ namespace Quiz
                         /*HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center,*/
                         Content = file[i].questions[j],
-                        Margin= new System.Windows.Thickness(10,10,10,10)
+                        Margin = new System.Windows.Thickness(10, 10, 10, 10)
                     };
                     button.Click += new RoutedEventHandler(questionButtonClick);
                     Grid.SetRow(button, j + 1);
@@ -222,10 +257,10 @@ namespace Quiz
             AnswerQuestionPanel.Visibility = System.Windows.Visibility.Visible;
             QuestionPanel.Visibility = System.Windows.Visibility.Hidden;
             QuestionTextLabel.Content = question.question;
-           botion1.Content = question.options[0];
-           botion2.Content = question.options[1];
-           botion3.Content = question.options[2];
-           botion4.Content = question.options[3];
+            botion1.Content = question.options[0];
+            botion2.Content = question.options[1];
+            botion3.Content = question.options[2];
+            botion4.Content = question.options[3];
             //Reset boptions
             botion1.IsEnabled = botion2.IsEnabled = botion3.IsEnabled = botion4.IsEnabled = true;
             botion1.Background = botion2.Background = botion3.Background = botion4.Background = normalBrush;
@@ -251,12 +286,22 @@ namespace Quiz
             ResultMatrix.Children.Clear();
             for (int i = 0; i < teams.Count; i++)
             {
-                ResultMatrix.RowDefinitions.Add(new RowDefinition()
+                ResultMatrix.RowDefinitions.Add(new RowDefinition());
+                Label teamName = new Label()
                 {
-                    Height = new GridLength(ResultMatrix.Height / teams.Count)
-                });
-                Label teamName = new Label() { Content = teams[i].name, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Foreground = Brushes.Black };
-                Label score = new Label() { Content = teams[i].score, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Foreground = Brushes.Black };
+                    Content = teams[i].name + ":",
+                    Foreground = Brushes.Black,
+                    HorizontalContentAlignment = HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    FontSize=26
+                };
+                Label score = new Label() { 
+                    Content = teams[i].score, 
+                    Foreground = Brushes.Black ,
+                    VerticalContentAlignment=VerticalAlignment.Center,
+                    HorizontalContentAlignment=HorizontalAlignment.Center,
+                    FontSize=26
+                };
                 Grid.SetColumn(teamName, 0);
                 Grid.SetRow(teamName, i);
                 ResultMatrix.Children.Add(teamName);
@@ -302,6 +347,12 @@ namespace Quiz
                 }
             }
 
+        }
+
+        private void TeamPanelBack_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            TeamPanel.Visibility = Visibility.Hidden;
+            StartPanel.Visibility = Visibility.Visible;
         }
     }
 }
