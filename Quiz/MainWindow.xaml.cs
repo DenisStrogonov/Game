@@ -8,6 +8,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml.Linq;
 using System.Windows.Data;
+using System.Media;
+using System.Reflection;
+using System.Windows.Media.Imaging;
+
 
 namespace Quiz
 {
@@ -26,15 +30,19 @@ namespace Quiz
         public int questionCount;
         public int categoryCount;
         public Brush normalBrush;
-
+        //Music shit
+        Boolean playing = true;
+        SoundPlayer player;
         public MainWindow()
         {
 
             InitializeComponent();
             normalBrush = botion1.Background;
+
             parseXML();
             categoryComboBox();
-
+            player = new SoundPlayer(Properties.Resources.Life_of_Riley);
+            player.PlayLooping();
         }
 
         void parseXML()
@@ -115,7 +123,7 @@ namespace Quiz
                         box.SetBinding(TextBox.TextProperty, b);
                         Label l = new Label()
                         {
-                            Content = "Komanda " + (i + 1) + ": ",
+                            Content = "Komanda " + (i + 1) + ":     ",
                             Foreground = Brushes.Black,
                             VerticalContentAlignment = VerticalAlignment.Center,
                             HorizontalContentAlignment = HorizontalAlignment.Right,
@@ -151,6 +159,8 @@ namespace Quiz
         //Start game !
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            selectedTeam = null;
+            selectedQuestion = null;
             TeamDockPanel.Items.Clear();
             foreach (var team in teams)
             {
@@ -256,11 +266,11 @@ namespace Quiz
             selectedQuestion = question;
             AnswerQuestionPanel.Visibility = System.Windows.Visibility.Visible;
             QuestionPanel.Visibility = System.Windows.Visibility.Hidden;
-            QuestionTextLabel.Content = question.question;
-            botion1.Content = question.options[0];
-            botion2.Content = question.options[1];
-            botion3.Content = question.options[2];
-            botion4.Content = question.options[3];
+            QuestionTextLabel.Text = question.question;
+            Option1.Content = question.options[0];
+            Option2.Content = question.options[1];
+            Option3.Content = question.options[2];
+            Option4.Content = question.options[3];
             //Reset boptions
             botion1.IsEnabled = botion2.IsEnabled = botion3.IsEnabled = botion4.IsEnabled = true;
             botion1.Background = botion2.Background = botion3.Background = botion4.Background = normalBrush;
@@ -293,14 +303,15 @@ namespace Quiz
                     Foreground = Brushes.Black,
                     HorizontalContentAlignment = HorizontalAlignment.Center,
                     VerticalContentAlignment = VerticalAlignment.Center,
-                    FontSize=26
+                    FontSize = 26
                 };
-                Label score = new Label() { 
-                    Content = teams[i].score, 
-                    Foreground = Brushes.Black ,
-                    VerticalContentAlignment=VerticalAlignment.Center,
-                    HorizontalContentAlignment=HorizontalAlignment.Center,
-                    FontSize=26
+                Label score = new Label()
+                {
+                    Content = teams[i].score,
+                    Foreground = Brushes.Black,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    HorizontalContentAlignment = HorizontalAlignment.Center,
+                    FontSize = 26
                 };
                 Grid.SetColumn(teamName, 0);
                 Grid.SetRow(teamName, i);
@@ -328,22 +339,18 @@ namespace Quiz
             list.Add(botion2);
             list.Add(botion3);
             list.Add(botion4);
-            var content = ((Button)sender).Content as Option;
-            if (content.correct)
+            var b = sender as Button;
+            var option = ((b.Content as Viewbox).Child as Label).Content as Option;
+            if (option.correct)
             {
-                ((Button)sender).Background = Brushes.ForestGreen;
+                b.Background = Brushes.ForestGreen;
                 selectedTeam.score += selectedQuestion.value;
             }
-            else
-            {
-                ((Button)sender).Background = Brushes.Red;
-                foreach (var b in list)
-                {
-                    var cont = b.Content as Option;
-                    if (cont.correct)
-                    {
-                        b.Background = Brushes.ForestGreen;
-                    }
+            else {
+                b.Background = Brushes.Red;
+                foreach (var button in list) {
+                    var opt = ((button.Content as Viewbox).Child as Label).Content as Option;
+                    if (opt.correct) button.Background = Brushes.ForestGreen;
                 }
             }
 
@@ -354,5 +361,39 @@ namespace Quiz
             TeamPanel.Visibility = Visibility.Hidden;
             StartPanel.Visibility = Visibility.Visible;
         }
+
+        private void WelcomePanel_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            WelcomePanel.Visibility = Visibility.Hidden;
+            StartPanel.Visibility = Visibility.Visible;
+        }
+
+        private void Label_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            WelcomePanel.Visibility = Visibility.Hidden;
+            StartPanel.Visibility = Visibility.Visible;
+        }
+
+
+        private void StopPlayback_Click(object sender, RoutedEventArgs e)
+        {
+            player.Stop();
+            StopPlayback.Visibility = Visibility.Hidden;
+            StartPlayback.Visibility = Visibility.Visible;
+        }
+
+        private void StartPlayback_Click(object sender, RoutedEventArgs e)
+        {
+            player.PlayLooping();
+            StopPlayback.Visibility = Visibility.Visible;
+            StartPlayback.Visibility = Visibility.Hidden;
+        }
     }
+
+    /// <summary>
+    /// This class is a replacement for <c>SoundPlayer</c>
+    /// and <c>MediaPlayer</c> classes. It solves 
+    /// their shortcomings.
+    /// </summary>
+   
 }
