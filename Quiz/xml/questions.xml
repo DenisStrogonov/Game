@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xml>
-  <category Name="Ball cupping">
+  <category Name="Gārūmzīmēš">
     <question value="500">
       <text>Its friday afternoon, shall you or shall you now cup the balls?</text>
       <option correct="true">yes</option>
