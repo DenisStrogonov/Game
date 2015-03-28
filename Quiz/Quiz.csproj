@@ -150,6 +150,7 @@
     <Resource Include="Resources\mute.png" />
     <Resource Include="Resources\play.png" />
     <Resource Include="Resources\Life_of_Riley.wav" />
+    <Resource Include="Resources\bg2.png" />
     <Content Include="xml\questions.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

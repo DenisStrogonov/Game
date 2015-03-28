@@ -8,7 +8,7 @@
 
     </Window.Resources>
     <Window.Background>
-        <ImageBrush ImageSource="Resources/bg.png"/>
+        <ImageBrush ImageSource="Resources/bg2.png"/>
     </Window.Background>
     <Grid>
         <Button Name="StopPlayback" HorizontalAlignment="Left" VerticalAlignment="Top" Width="36" Height="36" Click="StopPlayback_Click" Background="{x:Null}" Panel.ZIndex="999" Margin="10,10,0,0" BorderBrush="{x:Null}">
@@ -17,7 +17,6 @@
         <Button Name="StartPlayback" HorizontalAlignment="Left" VerticalAlignment="Top" Width="36" Height="36" Visibility="Hidden" Click="StartPlayback_Click" Background="{x:Null}" Panel.ZIndex="999" Margin="10,10,0,0" BorderBrush="{x:Null}">
             <Image Source="Resources/mute.png"></Image>
         </Button>
-       
         <Grid HorizontalAlignment="Left" Height="481" Margin="10,10,0,0" VerticalAlignment="Top" Width="742" Name="WelcomePanel" MouseLeftButtonUp="WelcomePanel_MouseLeftButtonUp">
 
             <Label HorizontalAlignment="Left" Margin="166,77,0,0" VerticalAlignment="Top" Height="280" Width="489" Content="Esiet sveicināti!" Foreground="#FF005EAC" FontSize="72" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MouseLeftButtonUp="Label_MouseLeftButtonUp"/>
