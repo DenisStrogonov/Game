@@ -90,4 +90,13 @@
       <option correct="false">#720</option>
     </question>
   </category>
+  <category Name="Trivia Questions!">
+    <question value="500">
+      <text>Black, 5 paws, how many kats?</text>
+      <option correct="true">5 1-legged kats</option>
+      <option correct="false">11 nigger kats</option>
+      <option correct="false">1 reeeeealy strange kat</option>
+      <option correct="false">CUP THE BALLS!</option>
+    </question>
+  </category>
 </xml>

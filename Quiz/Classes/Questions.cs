@@ -53,7 +53,7 @@ namespace Quiz.Classes
     public static class Errors {
         public static String teamCountParse = "Komandu skaitam jābūt skaitliskai vērtībai!";
         public static String teamCountOOR = "Komandu skaitam jābūt robežās no 1 līdz 5!";
-        public static String questionCountOOR = "Jautājumu skaitam jābūt skaitlim lielākam par 0";
+        public static String questionCountOOR = "Jautājumu skaitam jābūt lielākam par 0";
         public static String teamNotSelected = "Lūdzu, izvēlieties komandu!";
     }
 }
